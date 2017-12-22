@@ -1,0 +1,28 @@
+<?php
+
+use \Symfony\Component\Yaml\Parser;
+
+function lazyconfig_get($module, $ymlfile = '') {
+
+  $ymlpath = drupal_get_path('module', $module);
+  if ($ymlfile == '') $ymlfile = $module;
+  
+  $yml_file_contents = file_get_contents($ymlpath . '/' . $ymlfile . '.yml');
+  
+  $p = new Parser();
+  return $p->parse($yml_file_contents);
+  
+#  return \Drupal::service('info_parser')->parse($ymlpath . '/' . $ymlfile . '.yml');
+
+  return array(
+    'hello there', 
+    'you sexy thing', 
+    array(
+      'color 1' => 'red', 
+      'color 2' => 'green', 
+      'color 3' => 'blue'
+    ),
+    'good bye'
+  );
+
+}

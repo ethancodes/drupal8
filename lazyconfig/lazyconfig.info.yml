@@ -1,0 +1,5 @@
+name: 'LazyConfig'
+type: module
+description: 'Custom YML configs for your modules.'
+package: Ethan
+core: '8.x'
