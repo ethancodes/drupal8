@@ -1,0 +1,9 @@
+mytests_lazyconfig:
+  path: 'mytests/lazyconfig'
+  options:
+    _admin_route: TRUE
+  defaults:
+    _controller: '\Drupal\mytests\Controller\MyTestsController::lazyconfig'
+    _title: 'MyTests LazyConfig'
+  requirements:
+    _access: 'TRUE'

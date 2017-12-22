@@ -1,0 +1,5 @@
+name: 'My Tests'
+type: module
+description: 'Testing my custom modules.'
+package: Ethan
+core: '8.x'

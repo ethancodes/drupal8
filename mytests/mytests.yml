@@ -1,0 +1,6 @@
+alpha: 1
+beta: 'two'
+gamma:
+  colors: 'red, green, blue'
+  numbers: '1, 2, 3'
+  shapes: 'triangle, circle, square'
