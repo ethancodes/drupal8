@@ -1,3 +1,27 @@
 <?php
 
-/* hi */
+use Drupal\Component\Utility\SafeMarkup;
+
+function genericcontactform_mail($key, &$message, $params) {
+  $options = [
+    'langcode' => $message['langcode'],
+  ];
+
+  switch ($key) {
+    case 'form_submit_notification':
+    
+      $msgbody  = 'This is to notify you that the following values were submitted to the ';
+      $msgbody .= 'Generic Contact Form.' . chr(10) . chr(10);
+      
+      $msgbody .= 'Name: ' . $params['name'] . chr(10);
+      $msgbody .= 'Email: ' . $params['email'] . chr(10);
+      $msgbody .= 'Color: ' . $params['color'] . chr(10);
+      $msgbody .= 'Message: ' . $params['message'] . chr(10);
+
+      $message['subject'] = 'Generic Contact Form Submission';
+
+      $message['body'][] = SafeMarkup::checkPlain($msgbody);
+
+      break;
+  }
+}

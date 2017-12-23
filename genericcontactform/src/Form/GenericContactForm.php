@@ -4,8 +4,27 @@ namespace Drupal\genericcontactform\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Mail\MailManagerInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\Core\Language\LanguageManagerInterface;
 
 class GenericContactForm extends FormBase {
+
+  protected $mailManager;
+  protected $languageManager;
+
+  public function __construct(MailManagerInterface $mail_manager, LanguageManagerInterface $language_manager) {
+    $this->mailManager = $mail_manager;
+    $this->languageManager = $language_manager;
+  }
+
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('plugin.manager.mail'),
+      $container->get('language_manager')
+    );
+  }
+
 
 
   public function getFormId() {
@@ -87,6 +106,8 @@ class GenericContactForm extends FormBase {
     $fscolor = $form_state->getValue('color');
     $fsmessage = $form_state->getValue('message');
     
+    
+    //
     // store all of this in the table
     $connection = \Drupal::database();
     $result = $connection->insert('genericcontactform')
@@ -99,6 +120,22 @@ class GenericContactForm extends FormBase {
       ->execute();
     
     
+    //
+    // now send an email notification
+    $module = 'genericcontactform';
+    $key = 'form_submit_notification';
+    
+    $admin_email = $this->config('system.site')->get('mail');
+    $from = $fsemail;
+
+    $params = $form_state->getValues();
+    $language_code = $this->languageManager->getDefaultLanguage()->getId();
+    // fwiw, usually ^this returns 'en' but hey, whatever
+    $send_now = TRUE;
+    $result = $this->mailManager->mail($module, $key, $to, $language_code, $params, $from, $send_now);
+    
+    
+    //
     // and we're done
     drupal_set_message('Thanks!');
 
