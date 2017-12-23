@@ -1,0 +1,39 @@
+<?php
+
+function genericcontactform_schema() {
+
+  $schema['genericcontactform'] = [
+    
+    'description' => 'Form submissions from Generic Contact Form',
+    
+    'fields' => [
+      'sid' => [
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE
+      ],
+      'name' => [
+        'type' => 'varchar',
+        'length' => 255
+      ],
+      'email' => [
+        'type' => 'varchar',
+        'length' => 255
+      ],
+      'color' => [
+        'type' => 'varchar',
+        'length' => 16
+      ],
+      'message' => [
+        'type' => 'text',
+        'size' => 'medium'
+      ]
+    ],
+    
+    'primary key' => array('sid')
+    
+  ];
+  
+  return $schema;
+
+}

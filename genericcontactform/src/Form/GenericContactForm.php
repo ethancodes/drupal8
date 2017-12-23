@@ -40,7 +40,6 @@ class GenericContactForm extends FormBase {
         'green' => 'Green',
         'blue' => 'Blue'
       ],
-#      '#required' => TRUE
       '#empty_option' => '- None -',
       '#empty_value' => 'none'
     ];
@@ -83,7 +82,25 @@ class GenericContactForm extends FormBase {
       and then i want to send an email notification to the admin
     */
     
-    drupal_set_message('Okay.');
+    $fsname = $form_state->getValue('name');
+    $fsemail = $form_state->getValue('email');
+    $fscolor = $form_state->getValue('color');
+    $fsmessage = $form_state->getValue('message');
+    
+    // store all of this in the table
+    $connection = \Drupal::database();
+    $result = $connection->insert('genericcontactform')
+      ->fields([
+        'name' => $fsname,
+        'email' => $fsemail,
+        'color' => $fscolor,
+        'message' => $fsmessage
+        ])
+      ->execute();
+    
+    
+    // and we're done
+    drupal_set_message('Thanks!');
 
   }
 
