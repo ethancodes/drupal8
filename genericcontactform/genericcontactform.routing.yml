@@ -1,0 +1,7 @@
+genericcontactform_displayform:
+  path: 'genericcontactform'
+  defaults:
+    _form: '\Drupal\genericcontactform\Form\GenericContactForm'
+    _title: 'Generic Contact Form'
+  requirements:
+    _access: 'TRUE'
