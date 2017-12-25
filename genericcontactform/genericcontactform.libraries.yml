@@ -1,0 +1,5 @@
+genericcontactform.icons:
+  version: VERSION
+  css:
+    theme:
+      css/genericcontactform.icons.css: {}

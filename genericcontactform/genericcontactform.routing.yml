@@ -5,3 +5,13 @@ genericcontactform_displayform:
     _title: 'Generic Contact Form'
   requirements:
     _access: 'TRUE'
+
+genericcontactform_adminlist:
+  path: 'genericcontactform/list'
+  options:
+    _admin_route: TRUE
+  defaults:
+    _controller: '\Drupal\genericcontactform\Controller\GenericContactFormController::adminlist'
+    _title: 'Generic Contact Form Submissions'
+  requirements:
+    _permission: 'view generic contact form submissions'

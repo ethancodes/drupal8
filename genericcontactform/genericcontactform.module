@@ -1,6 +1,7 @@
 <?php
 
 use Drupal\Component\Utility\SafeMarkup;
+use Drupal\Core\Url;
 
 function genericcontactform_mail($key, &$message, $params) {
   $options = [
@@ -25,3 +26,30 @@ function genericcontactform_mail($key, &$message, $params) {
       break;
   }
 }
+
+
+function genericcontactform_toolbar() {
+
+  $items['genericcontactform'] = [
+    '#type' => 'toolbar_item',
+    'tab' => [
+      '#type' => 'link',
+      '#title' => 'Generic Contact Form',
+      '#url' => Url::fromRoute('genericcontactform_adminlist'),
+      '#attributes' => [
+        'title' => 'GCF',
+        'class' => ['toolbar-icon', 'toolbar-icon-genericcontactform'],
+      ],
+    ],
+    '#weight' => 99,
+    '#attached' => [
+      'library' => [
+        'genericcontactform/genericcontactform.icons',
+      ],
+    ],
+  ];
+
+  return $items;
+
+}
+

@@ -1,0 +1,5 @@
+.toolbar-bar .toolbar-icon-genericcontactform:before,
+.toolbar-bar .toolbar-icon-genericcontactform:active:before,
+.toolbar-bar .toolbar-icon-genericcontactform.active:before {
+  background-image: url(../images/genericcontactform.svg);
+}
