@@ -8,7 +8,26 @@ class GenericContactFormController {
     return 'genericcontactform';
   }
   
+  public static function loadsub($sid) {
+  
+    $q  = 'SELECT sid, name, email, color, message ';
+    $q .= 'FROM {genericcontactform} ';
+    $q .= 'WHERE sid = :sid ';
+    $connection = \Drupal::database();
+    $query = $connection->query($q, array(':sid' => $sid));
+    $result = $query->fetchAll();
+    
+    if ($result) {
+      return current($result);
+    } else {
+      return FALSE;
+    }
+  
+  }
+  
   public function adminlist() {
+  
+    $adminlist = '';
   
     // first we need to get a list of all the records in the table
     $q  = 'SELECT sid, name, email, color, message ';

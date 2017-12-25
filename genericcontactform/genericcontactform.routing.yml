@@ -15,3 +15,14 @@ genericcontactform_adminlist:
     _title: 'Generic Contact Form Submissions'
   requirements:
     _permission: 'view generic contact form submissions'
+
+genericcontactform_adminedit:
+  path: 'genericcontactform/edit/{sid}'
+  options:
+    _admin_route: TRUE
+  defaults:
+    _form: '\Drupal\genericcontactform\Form\GenericContactFormEdit'
+    _title: 'Generic Contact Form Submissions'
+  requirements:
+    _permission: 'view generic contact form submissions'
+    sid: \d+

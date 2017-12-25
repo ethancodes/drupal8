@@ -2,4 +2,4 @@ Generic Contact Form is an example of a custom module built using the Forms API.
 
 @TODO
 x allow form submissions to be viewed in drupal admin
-- allow form submissions to be "updated" in some way, deleted
+x allow form submissions to be "updated" in some way, deleted
