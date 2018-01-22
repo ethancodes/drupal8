@@ -1,0 +1,5 @@
+name: 'Hide Actions'
+type: module
+description: 'Hide Action buttons on Page without specific Permission'
+package: Ethan
+core: '8.x'

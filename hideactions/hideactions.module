@@ -1,0 +1,62 @@
+<?php
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\node\NodeInterface;
+
+/*
+  this function checks the form_id and user permissions
+  and then does two things
+    - removes the default actions (save, delete, etc)
+    - adds a new Change Request bit
+  the submit button we're adding with the Change Request bit
+    has its own, custom, form submit handler function
+*/
+function hideactions_form_node_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+
+  // first we want to make sure this is a Page
+  if ($form_id == 'node_page_form' || $form_id == 'node_page_edit_form') {
+  
+    // next we want to see if this user has the correct Permission
+    if (!\Drupal::currentUser()->hasPermission('can click Actions')) {
+    
+      // remove the default actions
+      unset($form['actions']);
+      
+      // let's set up something of our own
+      $form['changerequest'] = [
+        '#weight' => 99
+      ];
+      $form['changerequest']['changerequestnotes'] = [
+        '#type' => 'textarea',
+        '#title' => 'Change Request Notes',
+        '#required' => TRUE
+      ];
+      $form['changerequest']['changerequestsubmit'] = [
+        '#type' => 'submit',
+        '#value' => 'Submit Change Request',
+        '#submit' => ['hideactions_node_page_changerequestsubmit']
+      ];
+    
+    }
+    
+  }
+
+}
+
+
+/*
+  this is our own, custom, form submit handler function
+*/
+function hideactions_node_page_changerequestsubmit(&$form, FormStateInterface $form_state) {
+
+  $crnotes = $form_state->getValue('changerequestnotes');
+  var_dump($crnotes);
+  exit;
+  /*
+    at this point we could do pretty much anything
+    for example, we could save these notes to a table and notify an admin
+    - you can see my genericcontactform module for all the crazy stuff you have to do
+      to send an email. that module also stores things in a table.
+  */
+
+}
