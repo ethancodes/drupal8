@@ -1,0 +1,27 @@
+<?php
+
+function articletab_schema() {
+
+  $schema['articletab'] = [
+    
+    'description' => 'Field values for the Article Tab',
+    
+    'fields' => [
+      'nid' => [
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE
+      ],
+      'fv' => [
+        'type' => 'varchar',
+        'length' => 255
+      ],
+    ],
+    
+    'primary key' => array('nid')
+    
+  ];
+  
+  return $schema;
+
+}

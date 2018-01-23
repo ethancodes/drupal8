@@ -1,0 +1,5 @@
+name: 'Article Tab'
+type: module
+description: 'Add a new tab to the Article content type for demo.'
+package: Ethan
+core: '8.x'

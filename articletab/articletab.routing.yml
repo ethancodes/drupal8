@@ -1,0 +1,19 @@
+entity.node.articletab_edit:
+  path: 'node/{node}/articletab'
+  options:
+    _admin_route: TRUE
+  defaults:
+    _form: '\Drupal\articletab\Form\ArticleTabEdit'
+    _title: 'Article Tab Edit'
+  requirements:
+    _custom_access: '\Drupal\articletab\Controller\ArticleTabController::articleTabAccess'
+    node: \d+
+
+articletab_test:
+  path: 'articletab/{node}'
+  defaults:
+    _controller: '\Drupal\articletab\Controller\ArticleTabController::articleTabTest'
+    _title: 'Article Tab Test'
+  requirements:
+    _access: 'TRUE'
+    node: \d+
