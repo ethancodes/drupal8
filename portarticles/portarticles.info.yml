@@ -1,0 +1,5 @@
+name: 'Port Articles'
+type: module
+description: 'Export and import articles from/to JSON for demo.'
+package: Ethan
+core: '8.x'

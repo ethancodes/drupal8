@@ -1,0 +1,17 @@
+portarticles_export:
+  path: 'portarticles/export'
+  defaults:
+    _controller: '\Drupal\portarticles\Controller\PortArticlesController::export'
+    _title: 'Port Articles Export'
+  requirements:
+    _access: 'TRUE'
+
+portarticles_import:
+  path: 'portarticles/import'
+  options:
+    _admin_route: TRUE
+  defaults:
+    _controller: '\Drupal\portarticles\Controller\PortArticlesController::import'
+    _title: 'Port Articles Import'
+  requirements:
+    _permission: 'can import articles'
