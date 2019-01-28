@@ -1,0 +1,1 @@
+We are using the Paragraphs module to handle special page elements. We have about a dozen, with various fields on them. Provided here are the template files used to produce the appropriate output.

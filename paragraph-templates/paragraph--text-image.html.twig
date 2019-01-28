@@ -1,0 +1,42 @@
+{#
+  For the Paragraph Type: Text + Image
+  Fields:
+    Text
+    Image
+    Image Alignment
+  There are no child templates for this template.
+  #}
+{%
+  set classes = [
+    'clearfix',
+    'paragraph',
+    'paragraph--type--' ~ paragraph.bundle|clean_class,
+    view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
+    not paragraph.isPublished() ? 'paragraph--unpublished'
+  ]
+%}
+
+{% set img_align = content.field_alignment['#items'].getString() %}
+
+{% set isrc = content.field_image['#items'].0.entity.uri.value %}
+{% set isrc = file_url(isrc) %}
+{% set ialt = content.field_image['#items'].0.alt %}
+{% set iclasses = [
+    'img-fluid',
+    'float-md-' ~ img_align
+  ]
+%}
+
+{% set t = content.field_text['#items'].0.value %}
+
+{% block paragraph %}
+  <div{{ attributes.addClass(classes) }}>
+    {% block content %}
+
+      <img src="{{ isrc }}" alt="{{ ialt }}" class="{{ iclasses|join(' ') }}" />
+
+      {{ t|raw }}
+      
+    {% endblock %}
+  </div>
+{% endblock paragraph %}

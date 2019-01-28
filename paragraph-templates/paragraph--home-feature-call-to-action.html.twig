@@ -1,0 +1,41 @@
+{#
+  For the Paragraph Type: Home Feature Call to Action
+  Fields:
+    Image
+    Headline
+    Text
+  There are no child templates for this template.
+  #}
+{%
+  set classes = [
+    'home-feature-cta',
+    'paragraph',
+    'paragraph--type--' ~ paragraph.bundle|clean_class,
+    view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
+    not paragraph.isPublished() ? 'paragraph--unpublished'
+  ]
+%}
+
+{% set cta_image = content.field_image['#items'].0.entity.uri.value %}
+{% set cta_image = file_url(cta_image) %}
+
+{% set cta_headline = content.field_headline['#items'].getString() %}
+{% set cta_text = content.field_text['#items'].0.value %}
+
+{% block paragraph %}
+  <section{{ attributes.addClass(classes).setAttribute('style', 'background-image: url(' ~ file_url(cta_image) ~');') }}>
+    {% block content %}
+      
+      <div class="container py-3">
+        <h1>{{ cta_headline }}</h1>
+      </div>
+      
+      {% if cta_text %}
+      <div class="home-feature-cta-overlay"><div class="container">
+        {{ cta_text|raw }}
+      </div></div>
+      {% endif %}
+      
+    {% endblock %}
+  </section>
+{% endblock paragraph %}

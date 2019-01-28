@@ -1,0 +1,32 @@
+{#
+  For the Paragraph Type: Feature Nav
+  Fields:
+    Icon
+    Headline
+    Subhead
+    URL
+  This template is a child of paragraph--home-feature-nav  
+  #}
+{% import '@paperclip/macros.twig' as myMacros %}
+{% set fn_icon = content.field_icon['#items'].getString() %}
+{% set fn_headline = content.field_headline['#items'].getString() %}
+{% set fn_subhead = content.field_subhead['#items'].getString() %}
+{% set fn_url = content.field_url['#items'].0.url %}
+
+<div class="card p-1">
+  <div class="card-body block-feature-nav">
+    {% if fn_url %}
+    <a href="{{ fn_url }}">
+    {% endif %}
+      <div>
+      {{ myMacros.icon(fn_icon) }}
+      <h1 class="alt-2 text-white">{{ fn_headline }}</h1>
+      {% if fn_subhead %}
+      <p>{{ fn_subhead }}</p>
+      {% endif %}
+      </div>
+    {% if fn_url %}
+    </a>
+    {% endif %}
+  </div>
+</div>

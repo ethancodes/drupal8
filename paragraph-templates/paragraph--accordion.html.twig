@@ -1,0 +1,30 @@
+{#
+  For the Paragraph Type: Accordion
+  Fields:
+    Title
+    Accordion Rows
+  Accordion Rows are rendered by paragraph--accordion-row
+  #}
+{%
+  set classes = [
+    'accordion',
+    'paragraph',
+    'paragraph--type--' ~ paragraph.bundle|clean_class,
+    view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
+    not paragraph.isPublished() ? 'paragraph--unpublished'
+  ]
+%}
+
+{% set a_title = content.field_title['#items'].getString() %}
+
+{% block paragraph %}
+  <div{{ attributes.addClass(classes) }}>
+    
+    {% if a_title %}
+      <h4>{{ a_title }}</h4>
+    {% endif %}
+    
+    {{ content|without('field_title') }}
+    
+  </div>
+{% endblock paragraph %}

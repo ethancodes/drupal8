@@ -1,0 +1,7 @@
+{#
+  This renders everything in the Grid Rows field.
+  But it strips out all of the default markup.
+  #}
+{% for item in items %}
+  {{ item.content }}
+{% endfor %}

@@ -1,0 +1,48 @@
+{#
+  For the Paragraph Type: Two Column Grid Row
+  Fields:
+    Icon
+    Image
+    Caption
+    Text
+  This template is a child of paragraph--two-column-grid  
+  #}
+{% import '@paperclip/macros.twig' as myMacros %}
+{%
+  set classes = [
+    'two-column-grid-row',
+    'p-3',
+    'row',
+    'align-items-center',
+    'paragraph',
+    'paragraph--type--' ~ paragraph.bundle|clean_class,
+    view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
+    not paragraph.isPublished() ? 'paragraph--unpublished'
+  ]
+%}
+{% set row_caption = content.field_caption['#items'].getString() %}
+{% set row_icon = content.field_icon['#items'].getString() %}
+{% set row_image = content.field_image['#items'].getString() %}
+{% set row_text = content.field_text['#items'].0.value %}
+
+{% block paragraph %}
+  <div{{ attributes.addClass(classes) }}>
+    
+    <div class="col-sm-3">
+      
+      {% if row_icon %}
+      {{ myMacros.icon(row_icon) }}
+      {% elseif row_image %}
+      {{ content.field_image }}
+      {% endif %}
+      
+      {% if row_caption %}
+      <p>{{ row_caption }}</p>
+      {% endif %}
+      
+    </div>
+    
+    <div class="px-3 col-sm-9">{{ row_text|raw }}</div>
+    
+  </div>
+{% endblock paragraph %}

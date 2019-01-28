@@ -1,0 +1,38 @@
+{#
+  For the Paragraph Type: Icon Callout
+  Fields:
+    Icon
+    Headline
+    Subhead
+  There are no child templates for this template.
+  #}
+{% import '@paperclip/macros.twig' as myMacros %}
+{%
+  set classes = [
+    'icon-callout',
+    'paragraph',
+    'paragraph--type--' ~ paragraph.bundle|clean_class,
+    view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
+    not paragraph.isPublished() ? 'paragraph--unpublished'
+  ]
+%}
+
+{% set content_icon = content.field_icon['#items'].getString() %}
+{% set content_headline = content.field_headline['#items'].getString() %}
+{% set content_sub = content.field_subhead['#items'].getString() %}
+
+{% block paragraph %}  
+<section{{ attributes.addClass(classes) }}>
+  <div class="container py-3">
+    
+    {{ myMacros.icon(content_icon) }}
+        
+    <h2 class="py-3">{{ content_headline }}</h2>
+  </div>
+  <footer class="py-4">
+    <div class="container">
+      <p>{{ content_sub }}</p>
+    </div>
+  </footer>
+</section>  
+{% endblock paragraph %}

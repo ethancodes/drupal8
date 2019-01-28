@@ -1,0 +1,31 @@
+{#
+  For the Paragraph Type: Two Column Grid
+  Fields:
+    Title
+    Grid Rows
+  Grid Rows are rendered by paragraph--two-column-grid-row
+  #}
+{%
+  set classes = [
+    'two-column-grid',
+    'paragraph',
+    'paragraph--type--' ~ paragraph.bundle|clean_class,
+    view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
+    not paragraph.isPublished() ? 'paragraph--unpublished'
+  ]
+%}
+{% block paragraph %}
+  <section{{ attributes.addClass(classes) }}>
+    
+    {% set tcg_title = content.field_title['#items'].getString() %}
+    {% if tcg_title %}
+    <header>
+      <h1>{{ tcg_title }}</h1>
+    </header>
+    {% endif %}
+    
+    {% block content %}
+      {{ content|without('field_title') }}
+    {% endblock %}
+  </section>
+{% endblock paragraph %}

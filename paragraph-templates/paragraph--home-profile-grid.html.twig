@@ -1,0 +1,57 @@
+{#
+  For the Paragraph Type: Home Profile Grid
+  Fields:
+    Title
+    Text
+    Button
+    Profiles
+  Profiles are rendered by paragraph--profile-grid
+  #}
+{%
+  set classes = [
+    'home-profile-grid',
+    'p-3',
+    'paragraph',
+    'paragraph--type--' ~ paragraph.bundle|clean_class,
+    view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
+    not paragraph.isPublished() ? 'paragraph--unpublished'
+  ]
+%}
+
+{% set pg_title = content.field_title['#items'].getString() %}
+{% set pg_text = content.field_text['#items'].0.value %}
+{% set button_title = content.field_button['#items'].0.title %}
+{% set button_url = content.field_button['#items'].0.url %}
+
+{% block paragraph %}
+  <div{{ attributes.addClass(classes) }}>
+    
+    <section class="profile-grid mx-auto text-center">
+      
+      {% if pg_title %}
+      <h1 class="alt">{{ pg_title }}</h1>
+      {% endif %}
+      
+      {% if pg_text %}
+        <article>{{ pg_text|raw }}</article>
+      {% endif %}
+      
+      <div class="container"><div class="row">
+      
+      {% block content %}
+        {{ content|without('field_title', 'field_text', 'field_button') }}
+      {% endblock %}
+        
+      </div></div>
+      
+      {% if button_url %}
+      <a href="{{ button_url }}" class="btn btn-outline-primary">
+        {{ button_title }}
+      </a>
+      {% endif %}
+      
+      
+    </section>
+    
+  </div>
+{% endblock paragraph %}

@@ -1,0 +1,59 @@
+{#
+  For the Paragraph Type: Profile Grid
+  Fields:
+    Image
+    Name
+    Title
+    URL
+  This template is a child of paragraph--home-profile-grid
+  
+  num_items is set in paperclip_preprocess_paragraph() in .theme
+  
+  #}
+{% if num_items <= 1 %}
+  {% set col_class = 'col-md-12' %}
+{% elseif num_items == 2 %}
+  {% set col_class = 'col-md-6' %}
+{% elseif num_items == 3 %}
+  {% set col_class = 'col-md-4' %}
+{% elseif num_items == 4 %}
+  {% set col_class = 'col-md-3' %}
+{% endif %}
+
+{%
+  set classes = [
+    'grid-cell',
+    col_class,
+    'px-1',
+    'pt-4',
+    'paragraph',
+    'paragraph--type--' ~ paragraph.bundle|clean_class,
+    view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
+    not paragraph.isPublished() ? 'paragraph--unpublished'
+  ]
+%}
+
+{% set pg_name = content.field_name['#items'].getString() %}
+{% set pg_url = content.field_url['#items'].0.url %}
+{% set pg_image = content.field_image['#items'].0.entity.uri.value %}
+{% set pg_image = file_url(pg_image) %}
+
+{% block paragraph %}
+  <div{{ attributes.addClass(classes) }}>
+
+    {% if pg_url %}
+    <a href="{{ pg_url }}">
+    {% endif %}
+      <div class="grid-content">
+        <img class="img-fluid" src="{{ pg_image }}" alt="{{ pg_name }}" />
+        <div class="grid-overlay">
+          {{ content.field_name }}
+          <div class="grid-more">{{ content.field_title }}</div>
+        </div>
+      </div>
+    {% if pg_url %}
+    </a>
+    {% endif %}
+
+  </div>
+{% endblock paragraph %}

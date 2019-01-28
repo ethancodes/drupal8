@@ -1,0 +1,52 @@
+<?php
+
+function paperclip_preprocess_paragraph(&$variables) {
+  
+  $paragraph = $variables['paragraph'];
+  
+  if ($paragraph->getType() == 'feature_nav') {
+
+    $num_items = 4;
+    $parent = $paragraph->getParentEntity();
+    if (isset($parent)) {    
+      $num_items = count($parent->field_feature_navs);
+    }
+    $variables['num_items'] = $num_items;
+    
+  } else if ($paragraph->getType() == 'profile_grid') {
+
+    $num_items = 4;
+    $parent = $paragraph->getParentEntity();
+    if (isset($parent)) {    
+      $num_items = count($parent->field_profiles);
+    }
+    $variables['num_items'] = $num_items;
+
+  } else if ($paragraph->getType() == 'home_profile_grid_from_view') {
+    
+    $view_items = [];
+    
+    $view_name = $paragraph->field_view[0]->target_id;    
+    $view = \Drupal\views\Views::getView($view_name);
+    $view->execute();
+    $result = \Drupal::service('renderer')->render($view->render());
+    if ($result) {
+      $result = trim(strip_tags($result));
+      $result = preg_replace('/\s\s+/', 'BONK', $result);
+      $results = explode('BONK', $result);
+      $results = array_chunk($results, 3);
+      foreach ($results as $r) {
+        $view_items[] = [
+          'photo' => $r[0],
+          'name'  => $r[1],
+          'title' => $r[2]
+        ];
+      }
+    }
+    
+    $variables['view_items'] = $view_items;
+    
+  }
+  
+}
+
