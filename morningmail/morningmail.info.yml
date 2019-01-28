@@ -1,0 +1,8 @@
+name: Morning Mail
+type: module
+description: Collects items to be sent by email.
+package: RPI
+core: '8.x'
+dependencies:
+  - mailsystem
+  - swiftmailer

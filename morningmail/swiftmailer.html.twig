@@ -1,0 +1,85 @@
+<html>
+<head>
+<style type="text/css">
+* {
+  font-family: Georgia, Times, Times New Roman, serif;
+}
+
+h1 {
+  color: #363436;
+  text-transform: none;
+  font-size: 26px;
+  border-bottom: solid 3px #d7dbde;
+  margin-top: 0px;
+  padding-top: 0px;
+  margin-bottom: 5px;
+  padding-bottom: 0px;
+  font-weight: 300;
+}
+
+p {
+  margin-top: 5px;
+  margin-bottom: 40px;
+}
+a {
+  text-decoration: none;
+  color: #dc001a;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+#content {
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: solid 3px #d7dbde;
+}
+#content h3 {
+  text-decoration: none;
+  color: #000;
+  margin-bottom: 5px;
+  padding-bottom: 0px;
+  font-size: 20px;
+  font-weight: 300;
+}
+#content h3 a {
+  text-decoration: none;
+  color: #dc001a;
+}
+#content h3 a:hover {
+  text-decoration: underline;
+}
+.footer {
+  color: #333;
+  padding: 0px;
+}
+.intro {
+  color: #333;
+  margin-bottom: 40px;
+}
+</style>
+</head>
+<body>
+<div>
+
+  <h1>Morning Mail</h1>
+  <p class="intro">
+    Morning Mail is an official news and announcements sharing service of Rensselaer Polytechnic Institute for its students, faculty, and staff.
+  </p>
+  
+  <div id="content">
+    {% for a in message.params.articles %}
+    <h3>
+      <a href="{{ a.url }}">{{ a.title }}</a>
+    </h3>
+    <p>{{ a.text|raw }}</p>
+    {% endfor %}
+  </div>
+  
+  <p class="footer">
+    For information about sharing your news or events, or to change your subscription settings, visit <a href="http://morningmail.rpi.edu">morningmail.rpi.edu</a>.
+  </p>
+  
+</div>
+</body>
+</html>

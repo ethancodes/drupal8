@@ -1,0 +1,33 @@
+morningmail.test_collect:
+  path: '/morningmail/test-collect/{d}'
+  defaults:
+    _controller: '\Drupal\morningmail\Controller\MorningMailController::test_collect'
+    _title: 'Test Collect'
+    d: 0
+  requirements:
+    _permission: 'access content'
+
+morningmail.test_email:
+  path: '/morningmail/test-email/{d}'
+  defaults:
+    _controller: '\Drupal\morningmail\Controller\MorningMailController::test_email'
+    _title: 'Test Email'
+    d: 0
+  requirements:
+    _permission: 'access content'
+
+morningmail.mark_pubdates:
+  path: '/morningmail/mark-pubdates'
+  defaults:
+    _controller: '\Drupal\morningmail\Controller\MorningMailController::mark_pubdates'
+    _title: 'Mark Pubdates'
+  requirements:
+    _permission: 'access content'
+
+morningmail.send_email:
+  path: '/morningmail/send-email'
+  defaults:
+    _controller: '\Drupal\morningmail\Controller\MorningMailController::send_email'
+    _title: 'Send Email'
+  requirements:
+    _permission: 'access content'
