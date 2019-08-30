@@ -1,0 +1,15 @@
+name: Magazine
+type: theme
+description: 'Drupal 8 theme for The Rensselaer Magazine'
+core: 8.x
+libraries:
+  - magazine/global-styling
+  - magazine/fontawesome
+  - magazine/addthis
+base theme: classy
+regions:
+  header: Header
+  highlighted: Highlighted
+  content: Content
+  sidebar_first: 'Sidebar first'
+  footer: Footer

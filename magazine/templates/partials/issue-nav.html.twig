@@ -1,0 +1,51 @@
+{#
+  ISSUE NAV
+  #}
+<div class="issue-nav-container">
+  
+  <div class="close-button text-right p-3">
+    <i class="fal fa-times color-red"></i>
+  </div>
+  
+  <div class="issue-nav-scroll">
+  
+    <div class="issue-nav-cover text-center">
+      <p><a href="{{ issue_nav.url }}">
+        <img src="{{ issue_nav.cover }}" 
+             alt="{{ issue_nav.title }}" 
+             class="img-fluid" />
+        </a></p>
+
+      <p><a href="{{ issue_nav.url }}" class="slab-title">
+        {{ issue_nav.title }}
+        </a></p>
+    </div>
+  
+    <div class="issue-nav-menu-container">
+      <p class="text-center text-uppercase">
+        <em>In This Issue</em>
+      </p>
+
+      <ul>
+        {% for mi in issue_nav.menu %}
+          <li>
+            <a href="{{ mi.url }}">{{ mi.title }}</a>
+            {% if mi.children|length > 0 %}
+            <ul>
+              {% for submi in mi.children %}
+              <li>
+                <a href="{{ submi.url }}">{{ submi.title }}</a>
+              </li>
+              {% endfor %}
+            </ul>
+            {% endif %}
+          </li>
+        {% endfor %}
+
+      </ul>
+
+    </div>
+    
+  </div>
+  
+</div>

@@ -1,0 +1,30 @@
+{#
+  template for the Class Notes View
+  this is one group, which would be a year
+  
+  see also views-view-fields--class-notes for the actual fields
+  
+  #}
+
+{% if title %}
+  {% set title_year = title|striptags %}
+  {% set current_year = "now"|date('Y') %}
+  {% if (current_year - title_year) % 5 == 0 %}
+    {% set year_class = "color-red" %}
+  {% else %}
+    {% set year_class = "color-darkgray" %}
+  {% endif %}
+  <h3 class="line-on-side">
+    <span class="{{ year_class }}">{{ title }}</span>
+  </h3>
+{% endif %}
+{% for row in rows %}
+  {%
+    set row_classes = [
+      default_row_class ? 'views-row',
+    ]
+  %}
+  <div{{ row.attributes.addClass(row_classes) }}>
+    {{- row.content -}}
+  </div>
+{% endfor %}

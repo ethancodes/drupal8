@@ -1,0 +1,114 @@
+{#
+  RPI Header
+  May end up moving this into it's own template
+  #}
+
+<header class="rpi-header pt-2 pt-md-3">
+
+  <div class="burger-menu">
+    <i class="fal fa-bars"></i>
+  </div>
+  
+  <div class="text-center">
+    <h1 class="text-uppercase m-0">
+      Rensselaer Alumni Magazine
+    </h1>
+  </div>
+  
+  <div class="search-menu">
+    <a href="/search/node"><i class="fal fa-search"></i></a>
+  </div>
+  
+</header>
+
+{% include '@magazine/partials/megamenu.html.twig' with megamenu %}
+
+<div class="layout-container mb-5">
+
+  {% if not is_home_page %}
+  <header class="py-3" role="banner">
+      
+    <div class="banner-logo">
+      <div class="banner-issue text-uppercase font-weight-bold">
+        {% if issue_title %}
+          {{ issue_title }}
+        {% else %}
+          {# Placeholder #}
+        {% endif %}
+      </div>
+      <img alt="Rennselaer" src="/{{ directory }}/images/Rensselaer-Masthead.svg">
+    </div>
+    
+  </header>
+  {% endif %}
+
+  <main role="main">
+    <a id="main-content" tabindex="-1"></a>{# link is in html.html.twig #}
+    
+    {{ page.highlighted }}
+
+    <div class="layout-content">
+      {% if page_url[0] == 'search' %}
+        <div class="container">
+      {% endif %}
+      {{ page.content }}
+      {% if page_url[0] == 'search' %}
+        </div>
+      {% endif %}
+    </div>{# /.layout-content #}
+
+    {% if page.sidebar_first %}
+      <aside class="layout-sidebar-first" role="complementary">
+        {{ page.sidebar_first }}
+      </aside>
+    {% endif %}
+
+  </main>
+
+</div>{# /.layout-container #}
+
+
+<a href="#" class="back-to-top" rel="nofollow">
+  <i class="fas fa-chevron-circle-up"></i>
+  <span class="sr-only">Back to top</span>
+</a>
+
+{% if home_page_footer %}
+{% include '@magazine/partials/subfooter.html.twig' %}
+{% elseif issue_footer %}
+{% include '@magazine/partials/subfooter.html.twig' with issue_footer %}
+{% endif %}
+
+{#
+  RPI FOOTER
+  Copied from pl-base but stripped way down
+  #}
+<footer class="rpi-footer py-3">
+  <div class="container">
+    <div class="row justify-content-lg-center">
+      <div class="col-12 col-lg-4">
+        <span>POLICIES:</span>
+        <a class="policy-link" target="_blank" href="http://scer.rpi.edu/forjournalists">
+          Media</a>
+        <a class="policy-link" target="_blank" href="https://info.rpi.edu/web-privacy-statement">
+          Web Privacy</a>
+        <a class="policy-link" target="_blank" href="https://sexualviolence.rpi.edu/">
+          Title IX</a>
+      </div>
+      <div class="col-12 col-lg-3">
+        <a target="_blank" href="http://rpi.edu/about/heoa/index.html">
+          Student Consumer Information</a>
+      </div>
+      <div class="col-12 col-lg-2">
+        <a target="_blank" href="http://info.rpi.edu/webaccessibility">
+          Accessibility</a>
+      </div>
+    </div>
+    <p class="mb-0 mt-3 text-center">
+      Copyright © {{ "now"|date("Y") }} Rensselaer Polytechnic Institute (RPI)
+    </p>  
+  </div>
+    
+</footer>
+
+{% include '@magazine/partials/issue-nav.html.twig' with issue_nav %}

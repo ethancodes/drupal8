@@ -1,0 +1,31 @@
+{#
+  template for the Class Notes Action Bar Custom Block
+  #}
+{% import '@magazine/macros.twig' as myMacros %}
+{% extends '@classy/block/block.html.twig' %}
+{% block content %}
+
+{{ attach_library('magazine/class-notes') }}
+
+<div class="class-notes-action-bar p-3">
+  <div class="container">
+        
+    <h1 class="text-center text-uppercase color-darkred rpi-serif">
+      Class Notes
+    </h1>
+    
+    <div class="row">
+    
+      <div class="col-12 col-md-5 text-center my-3">
+        <a href="#" class="btn yellow">Submit a Class Note</a>
+      </div>
+      
+      <div class="col-12 col-md-7 my-3">
+        {{ myMacros.class_notes_years_select(class_notes_years) }}
+      </div>
+    
+    </div>
+  </div>
+</div>
+  
+{% endblock %}

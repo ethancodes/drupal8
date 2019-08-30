@@ -1,0 +1,120 @@
+{#
+  this is the template for the Mega Menu
+  whoop
+  
+  so there are four things here
+  The Magazine
+  At Rensselaer
+  Categories
+  Features
+  
+  all of these variables are set up in
+  magazine_preprocess_page()
+  which calls get_megamenu()
+  
+  the_magazine comes from a View Block
+  
+  at_rensselaer comes from get_at_rensselaer()
+  but all that function does is look up a home page
+  and get the four that are listed on that home page
+  
+  categories comes from get_categories_for_display()
+  which does a bunch of voodoo so that we only list things with content in it
+  
+  features comes from a View Block
+  
+  #}
+
+{% import '@magazine/macros.twig' as myMacros %}
+
+<div class="megamenu-container"><div class="megamenu-panels">
+
+  {# THE MAGAZINE #}
+  <div class="megamenu-panel">
+    
+    <div class="panel-item">
+      <a href="/the-magazine">The Magazine</a>
+    </div>
+    
+    <div class="panel-content">
+      <div class="container py-3">
+        {% autoescape false %}
+        {{ the_magazine }}
+        {% endautoescape %}
+        <p class="mt-3 text-center">
+          <a href="/the-magazine" class="btn outline gray">
+            View All Issues
+          </a>
+        </p>
+      </div>
+    </div>
+    
+  </div>
+
+  
+  {# AT RENSSELAER #}
+  <div class="megamenu-panel">
+    
+    <div class="panel-item">
+      <a href="/at-rensselaer">At Rensselaer</a>
+    </div>
+    
+    <div class="panel-content">
+      <div class="container py-3">
+        
+        <div class="row">
+        {% for ar in at_rensselaer %}
+          <div class="col-12 col-md-3 text-center">
+            <a href="{{ ar.url }}">
+            <img src="{{ ar.image }}" alt="{{ ar.title }}" class="img-fluid" />
+            </a>
+            <a href="{{ ar.url }}" class="slab-title">{{ ar.title}}</a>
+          </div>
+        {% endfor %}
+        </div>
+        
+        <p class="mt-3 text-center">
+          <a href="/at-rensselaer" class="btn outline gray">
+            View All Articles
+          </a>
+        </p>
+      </div>
+    </div>
+    
+  </div>
+
+  
+  {# CATEGORIES #}
+  <div class="megamenu-panel">
+    
+    <div class="panel-item">
+      <a href="/categories">Categories</a>
+    </div>
+    
+    <div class="panel-content">
+      <div class="container py-3">
+        {{ myMacros.show_categories(categories) }}
+      </div>
+    </div>
+    
+  </div>
+
+  
+  {# FEATURES #}
+  <div class="megamenu-panel">
+    
+    <div class="panel-item">
+      <a href="/features">Features</a>
+    </div>
+    
+    <div class="panel-content">
+      <div class="container py-3">
+        {% autoescape false %}
+        {{ features }}
+        {% endautoescape %}
+      </div>
+    </div>
+    
+  </div>
+  
+</div></div>

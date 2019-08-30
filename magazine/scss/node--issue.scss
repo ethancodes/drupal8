@@ -1,0 +1,83 @@
+/* styles for the Issue Content Type */
+
+article.node--type-issue .issue-hero {
+  a {
+    color: white;
+    text-decoration: none;
+  }
+  .col-md-5 {
+    background-color: $rpi_darkgray;
+    color: $rpi_white;
+    text-align: center;
+    font-size: 18px;
+
+    h2 {
+      font-size: 40px;
+      font-weight: $font_weight_bold;
+    }
+  }
+  img {
+    width: 100%;
+  }
+}
+
+@media #{$responsive-biggerthan-md} {
+  
+  article.node--type-issue .issue-hero a {
+    color: $rpi_darkgray;
+  }
+  article.node--type-issue .issue-hero .col-md-5 {
+    background-color: $rpi_white;
+    color: $rpi_darkgray;
+    text-align: left;
+    font-size: 30px;
+    font-weight: $font_weight_light;
+    h2 {
+      font-size: 50px;
+      font-weight: $font_weight_black;
+    }
+  }
+  
+}
+
+
+article.node--type-issue .in-every-issue {
+  background-color: $rpi_red;
+  color: $rpi_white;
+  h2 {
+    font-size: 20px;
+  }
+  a, a:hover {
+    color: $rpi_white;
+    text-decoration: none;
+  }
+}
+
+article.node--type-issue .notable-alumni-container {
+  h2 {
+    font-size: 20px;
+  }
+}
+
+article.node--type-issue .class-notes-container {
+  background-color: $rpi_darkgray;
+  h2 {
+    color: $rpi_white;
+    font-size: 20px;
+  }
+  a {
+    color: $rpi_lightteal;
+  }
+}
+
+article.node--type-issue .snapshot-container {
+  h2 {
+    font-size: 20px;
+  }
+  p {
+    font-size: 0.8rem;
+    font-style: italic;
+  }
+  
+  
+}

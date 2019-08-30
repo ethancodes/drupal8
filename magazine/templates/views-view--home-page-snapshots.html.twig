@@ -1,0 +1,38 @@
+{#
+  template for the Home Page Snapshots View
+  rows is rendered in views-view-unformatted--home-page-snapshots
+  #}
+
+{% import '@magazine/macros.twig' as myMacros %}
+
+{% set num_rows = rows.0['#rows']|length %}
+
+{% if num_rows %}
+
+<div class="home-page-snapshots my-3 py-3">
+  <div class="container">
+  
+    <h2 class="slab-title">Snapshots</h2>
+    
+<div id="snapshotGo" 
+  class="carousel slide carousel-fade" 
+  data-ride="carousel" 
+  data-interval="false">
+  
+  {{ myMacros.slider_indicators(num_rows, "snapshotGo") }}
+
+  <div class="carousel-inner">
+    {{ rows }}
+  </div>
+  
+  {{ myMacros.slider_arrow("prev", "Previous", "snapshotGo") }}
+  {{ myMacros.slider_arrow("next", "Next", "snapshotGo") }}
+  
+</div>{# end snapshotGo #}  
+    
+  
+  </div>
+
+</div>
+  
+{% endif %}

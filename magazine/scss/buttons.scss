@@ -1,0 +1,83 @@
+.btn {
+  text-transform: uppercase;
+  font-size: 0.889rem;
+  letter-spacing: 1px;
+  border: 2px solid transparent;
+  border-radius: 0;
+  padding: 0.5rem 3rem;
+  color: $rpi_white;
+  &.blue {
+    background-color: $rpi_darkblue;
+    border-color: $rpi_darkblue;
+    &:hover,
+    &:active {
+      color: $rpi_darkblue;
+      background-color: $rpi_white;
+      border-color: $rpi_darkblue;
+    }
+    &.outline {
+      background-color: $rpi_white;
+      color: $rpi_darkblue;
+      border-color: $rpi_darkblue;
+      &:hover,
+      &:active {
+        color: $rpi_white;
+        background-color: $rpi_darkblue;
+        border-color: $rpi_darkblue;
+      }
+    }
+  }
+  &.red {
+    background-color: $rpi_darkred;
+    border-color: $rpi_darkred;
+    &:hover,
+    &:active {
+      color: $rpi_darkred;
+      background-color: $rpi_white;
+      border-color: $rpi_darkred;
+    }
+    &.outline {
+      background-color: $rpi_white;
+      color: $rpi_darkred;
+      border-color: $rpi_darkred;
+      &:hover,
+      &:active {
+        background-color: $rpi_darkred;
+        border-color: $rpi_darkred;
+        color: $rpi_white;
+      }
+    }
+  }
+  &.gray {
+    background-color: $rpi_medgray;
+    border-color: $rpi_medgray;
+    &:hover,
+    &:active {
+      color: $rpi_medgray;
+      background-color: $rpi_white;
+      border-color: $rpi_medgray;
+    }
+    &.outline {
+      background-color: $rpi_white;
+      color: $rpi_medgray;
+      border-color: $rpi_medgray;
+      &:hover,
+      &:active {
+        background-color: $rpi_medgray;
+        border-color: $rpi_medgray;
+        color: $rpi_white;
+      }
+    }
+  }
+  &.yellow {
+    color: $rpi_medgray;
+    background-color: $rpi_yellow;
+    border-color: $rpi_medgray;
+    &:hover,
+    &:active {
+      color: $rpi_yellow;
+      background-color: $rpi_medgray;
+      border-color: $rpi_yellow;
+    }
+  }
+}

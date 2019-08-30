@@ -1,0 +1,47 @@
+header.rpi-header {
+  position: relative;
+  background-color: #424242;
+  color: $rpi_white;
+  font-size: 0.8rem;
+  min-height: 36px;
+  
+  a, a:hover {
+    color: $rpi_lightgray;
+  }
+  
+  i {
+    cursor: pointer;
+    font-size: 14px;
+  }
+  .burger-menu {
+    position: absolute;
+    top: 0.5rem;
+    left: 10px;
+  }
+  .search-menu {
+    position: absolute;
+    top: 0.5rem;
+    right: 10px;
+  }
+  
+  .text-center {
+    margin: 0 44px;
+    h1 {
+      font-size: 14px;
+    }
+  }  
+  
+}
+
+@media #{$responsive-biggerthan-md} {
+  header.rpi-header {
+    .burger-menu,
+    .search-menu {
+      top: 1rem;
+    }
+    i, 
+    .text-center h1 {
+      font-size: 28px;
+    }
+  }
+}

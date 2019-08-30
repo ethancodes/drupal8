@@ -1,0 +1,21 @@
+global-styling:
+  css:
+    theme:
+      css/magazine.css: {}
+  js:
+    js/magazine.js: {}
+  dependencies:
+    - core/jquery
+    
+fontawesome:
+  css:
+    theme:
+      /libraries/fontawesome/css/all.min.css: {}
+
+class-notes:
+  js:
+    js/class-notes.js: {}
+    
+addthis:
+  js:
+    //s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5d67c4c3b916d45d: { type: external, minified: true }

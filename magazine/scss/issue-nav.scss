@@ -1,0 +1,87 @@
+.issue-nav-container {
+  
+  @extend .animated;
+  
+  position: fixed;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  max-width: 480px;
+  height: 100%;
+  z-index: 9999; /* omg */
+  
+  background-color: $rpi_white;
+  border-right: 3px solid $rpi_red;
+    
+  .close-button {
+    position: absolute;
+    width: 100%;
+    background-color: $rpi_white;
+    i {
+      cursor: pointer;
+      font-size: 36px;
+    }
+  }
+  
+  .issue-nav-cover a {
+    color: $rpi_darkgray;
+  }
+  
+  .issue-nav-scroll {
+    max-height: 100%;
+    overflow-y: scroll;
+    padding-top: 75px;
+  }
+  
+  .issue-nav-menu-container {
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      
+      li {
+        font-size: 20px;
+        border-bottom: 1px solid $rpi_darkgray;
+        
+        a {
+          color: $rpi_darkgray;
+          font-weight: $font_weight_bold;
+          text-transform: uppercase;
+          display: block;
+          padding: 0.5rem 1rem;
+          &:hover {
+            background-color: $rpi_yellow;
+            text-decoration: none;
+          }
+        }
+        ul {
+          li {
+            border: 0;
+            
+            a {
+              font-weight: $font_weight_regular;
+              text-transform: none;
+              padding-left: 2rem;
+            }
+          }
+        }
+      }
+    }
+  }
+  
+}
+
+.issue-nav-container.open {
+  left: 0;
+}
+
+@media #{$responsive-biggerthan-sm} {
+  .issue-nav-container {
+    width: 66%
+  }
+}
+@media #{$responsive-biggerthan-md} {
+  .issue-nav-container {
+    width: 33%
+  }
+}

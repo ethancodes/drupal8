@@ -1,0 +1,61 @@
+/* i don't think any of these things are ACTUALLY forms but shrug */
+
+.fancy-select {
+  /* copied/borrowed from https://codepen.io/michmy/pen/jBQQpp */
+  position: relative;
+  display: inline-block;
+  margin-bottom: 15px;
+  width: 100%;
+
+  select {
+    @extend .btn, .outline, .gray;
+    display: inline-block;
+    width: 100%;
+    cursor: pointer;
+    padding: 10px 15px;
+    outline: 0;
+    border-radius: 0;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  select::-ms-expand {
+    display: none;
+  }
+
+  select:hover,
+  select:focus {
+    color: #363436;
+    background: #fff;
+  }
+
+  select:disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  .select-arrow {
+    position: absolute;
+    top: 16px;
+    right: 15px;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+    border-style: solid;
+    border-width: 15px 10px 0 10px;
+    border-color: $rpi_medgray transparent transparent transparent;
+  }
+
+  select:hover ~ .select-arrow,
+  select:focus ~ .select-arrow {
+    border-top-color: #000;
+  }
+
+  select:disabled ~ .select-arrow {
+    border-top-color: gray;
+  }
+  
+}

@@ -1,0 +1,10 @@
+.home-page-from-our-readers {
+  background-color: $rpi_body_background;
+  h2 {
+    font-size: 20px;
+  }  
+}
+
+.field--name-field-featured-article {
+  @extend .view-taxonomy-term;
+}

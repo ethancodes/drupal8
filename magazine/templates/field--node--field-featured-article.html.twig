@@ -1,0 +1,35 @@
+{#
+  template for the Featured Article field on the Home Page
+  this field displays up to 4 links to Feature articles
+  (which are actually Advanced Pages with the Page Type set to Feature)
+  #}
+
+{%
+  set classes = [
+    'my-3',
+    'field',
+    'field--name-' ~ field_name|clean_class,
+    'field--type-' ~ field_type|clean_class,
+    'field--label-' ~ label_display,
+  ]
+%}
+
+{% if items|length == 2 %}
+  {% set row_classes = "col-12 col-md-6" %}
+  {% elseif items|length == 3 %}
+  {% set row_classes = "col-12 col-md-4" %}
+  {% elseif items|length == 4 %}
+  {% set row_classes = "col-12 col-md-6" %}
+{% endif %}
+
+<div{{ attributes.addClass(classes) }}>
+  <div class="container">
+    <div class="row">
+      
+      {% for item in items %}
+        <div class="{{ row_classes }}">{{ item.content }}</div>
+      {% endfor %}
+      
+    </div>
+  </div>
+</div>

@@ -1,0 +1,51 @@
+{#
+  this monstrosity is the template
+  for the FIELDS
+  in ONE ROW
+  for the Class Notes View
+  
+  what i'm going to do here is loop through all of the fields
+  and put them in an array
+  so that i can go back and re-arrange them the way i want
+  which is probably dumb but shrug
+  
+  #}
+
+{%
+  set row_image = fields.field_media.content|striptags('<img>')|trim
+  %}
+{%
+  set row_caption = fields.field_media_caption.content|striptags|trim
+  %}
+{%
+  set row_school = fields.field_school.content|striptags|trim
+  %}
+{%
+  set row_body = fields.body.content|striptags('<b><strong><i><em><a>')|trim
+  %}
+{% 
+  set row_created = fields.created.content|striptags|trim 
+  %}
+
+{% if row_image %}
+  <div class="float-md-left w-md-25 mr-md-3">
+    {{ fields.field_media.content }}
+    {% if row_caption %}
+    <div class="caption">{{ row_caption }}</div>
+    {% endif %}
+  </div>
+{% endif %}
+
+{% if row_school %}
+<span class="field-school">{{ row_school }}</span>  
+{% endif %}
+{% if row_body %}
+<span class="body">
+  {% autoescape false %}
+  {{ row_body }}
+  {% endautoescape %}
+</span>
+{% endif %}
+{% if row_created %}
+<span class="created">Posted {{ row_created }}</span>
+{% endif %}

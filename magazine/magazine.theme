@@ -1,0 +1,268 @@
+<?php
+
+
+use Drupal\image\Entity\ImageStyle;
+
+
+$includes = [
+  'categories',
+  'paragraphs',
+  'issues',
+  'class-notes',
+  'home-page',
+  'preprocess-blocks',
+  'preprocess-paragraph-types',
+  'preprocess-node-types'
+];
+foreach ($includes as $i) {
+  include 'inc/magazine.' . $i . '.inc';
+}
+
+
+/**
+  our own classes for <body>
+  */
+function magazine_preprocess_html(&$variables) {
+  
+  // get the current issue
+  $issue = get_current_issue();
+  if ($issue) {
+    // make a class name out of it
+    $issue_class = \Drupal\Component\Utility\Html::getClass($issue['title']);
+    $variables['attributes']['class'][] = $issue_class;
+  }
+  
+}
+
+
+function magazine_preprocess_page_title(&$variables) {
+  // some node types don't display a title
+  if ($node = \Drupal::routeMatch()->getParameter('node')) {
+    $node_type = $node->getType();
+    if ($node_type == 'issue') {
+      $variables['title'] = '';
+    }
+  }
+}
+
+/**
+  set up anything we need to at the page level
+  */
+function magazine_preprocess_page(&$variables) {
+  
+  $current_path = \Drupal::service('path.current')->getPath();
+  $variables['page_url'] = explode('/', substr($current_path, 1));
+  
+  if (array_key_exists('node', $variables)) {
+    $type = $variables['node']->getType();
+    if ($type == 'home_page') {
+      $variables['is_home_page'] = TRUE;
+    }
+  }
+  
+  // ISSUE NAV
+  $variables['issue_nav'] = get_issue_nav();
+  
+  // MEGA MENU
+  $variables['megamenu'] = get_megamenu();
+  
+  
+  // ISSUE TITLE in the MASTHEAD
+  if (array_key_exists('node', $variables)) {
+    $type = $variables['node']->getType();
+    if ($type == 'issue') {
+      $variables['issue_title'] = $variables['node']->getTitle();
+    } else if ($type == 'advanced_page') {
+      $issue_node = get_parent_issue(0, $variables['node']);
+      if ($issue_node) {
+        $variables['issue_title'] = $issue_node->getTitle();
+      }
+    } else if ($type == 'home_page') {
+      $issue = get_current_issue();
+      if ($issue) {
+        $variables['issue_title'] = $issue['title'];
+      }
+    }
+    
+  }
+  
+  // FOOTERS
+  if (array_key_exists('node', $variables)) {
+    $type = $variables['node']->getType();
+    if ($type == 'issue') {
+      // show the footer for THIS issue
+      $variables['issue_footer'] = get_issue_footer($variables['node']);
+      
+    } else if ($type == 'advanced_page') {
+      // find out if this AP is under an issue
+      // if it is, show the footer for THAT issue
+      $issue_node = get_parent_issue(0, $variables['node']);
+      if ($issue_node) {
+        $variables['issue_footer'] = get_issue_footer($issue_node);
+      }
+    }
+  }
+  if (!array_key_exists('issue_footer', $variables)) {
+    // if you don't have an issue footer, show the "default"
+    $variables['home_page_footer'] = TRUE;
+  }
+  
+}
+
+/**
+  we're gonna set up all the variables for twig templates here
+  everything will go in a variable called n
+  which is an array
+  
+  each Content Type will get its own function
+  _preprocess_node_program_page()
+  each function will handle the fields-to-variables for the Type
+  and return an array
+  
+  these functions are in inc/magazine.preprocess-node-types.inc
+  */
+function magazine_preprocess_node(&$variables) {
+  
+  $n = FALSE;
+  $type = $variables['node']->getType();
+  $f = '_preprocess_node_' . $type;
+  if (function_exists($f)) {
+    $n = $f($variables['node']);
+  }
+  
+  $variables['n'] = $n;
+  
+}
+
+/**
+  we're gonna set up all the variables for twig templates here
+  everything will go in a variable called p
+  which is an array
+  
+  abstracting this a bit so that each Paragraph Type has its own function
+  _preprocess_paragraph_checkerboard()
+  each function will handle the fields-to-variables for that Type
+  and return an array
+  
+  these functions are all in
+  inc/magazine.preprocess-paragraph-types.inc
+  
+  */
+function magazine_preprocess_paragraph(&$variables) {
+  
+  $p = FALSE;
+  $paragraph = $variables['paragraph'];
+  #echo __FUNCTION__ . ' (' . $paragraph->getType() . ')';
+  
+  $f = '_preprocess_paragraph_' . $paragraph->getType();
+  if (function_exists($f)) {    
+    $p = $f($paragraph);
+  }
+   
+  $variables['p'] = $p;
+  
+}
+
+
+/**
+  preprocess block
+  these functions are all in inc/magazine.preprocess-blocks.inc
+  */
+function magazine_preprocess_block(&$variables, $hook) {
+  
+  if (isset($variables["elements"]["#id"])) {
+    $block_id = $variables["elements"]["#id"];
+    $f = '_preprocess_block_' . $block_id;
+    if (function_exists($f)) {
+      $f($variables);
+    }
+  }
+    
+}
+
+
+
+/**
+  set up everything for the megamenu
+  */
+function get_megamenu() {
+  
+  $megamenu = [];
+  
+  /*
+    so we need the four most recent issues of the magazine
+    this should come from a view
+    */
+  $megamenu['the_magazine'] = _view_block('the_magazine', 'block_1');
+  
+  
+  /*
+    we need the four articles specified in the current home page
+    */
+  $megamenu['at_rensselaer'] = get_at_rensselaer();
+  
+  
+  /*
+    we need the categories
+    */
+  $megamenu['categories'] = get_categories_for_display();
+  
+  
+  /*
+    and we need the EIGHT most recent features
+    this should come from a view
+    */
+  $megamenu['features'] = _view_block('issue_features', 'block_1');
+  
+  
+  return $megamenu;
+  
+}
+
+
+function _uri2url($uri) {
+  
+  if (!$uri) return FALSE;
+  
+  return \Drupal\Core\Url::fromUri($uri)->toString();
+  
+}
+
+function _image_uri_to_style_url($uri, $style) {
+  
+  if (!$uri) return FALSE;
+  
+  $image_style = ImageStyle::load($style);
+  return $image_style->buildUrl($uri);
+  
+}
+
+function _view_block($view_id, $block_id) {
+  $view = \Drupal\views\Views::getView($view_id);
+  $view->setDisplay($block_id);
+  $view->execute();
+  $rendered = $view->render();
+  $rendered = \Drupal::service('renderer')->render($rendered);
+  return (string)$rendered;  
+}
+
+
+
+function debug_objects($o) {
+  echo '<pre style="margin: 10px; border: 1px solid black; padding: 10px;">';
+  echo gettype($o) . chr(10);
+  foreach ($o as $p => $v) {
+    if (!is_array($v) && !is_object($v)) {
+      echo $p . ': ' . $v . chr(10);
+    } else if (is_object($v)) {
+      echo $p . ' is an object:' . chr(10);
+      debug_objects($v);
+    } else if (is_array($v)) {
+      echo $p . ' is an array:' . chr(10);
+      var_dump($v);
+    } else {
+      echo 'v is a ' . gettype($v) . chr(10);
+    }
+  }
+  echo '</pre>';
+}

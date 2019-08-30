@@ -1,0 +1,52 @@
+{#
+  For the Paragraph Type: Text + Image
+  Everything we have here is in an array called p
+  And that is set in paperclip_preprocess_paragraph
+  #}
+{%
+  set classes = [
+    'clearfix',
+    'my-5',
+    'paragraph',
+    'paragraph--type--' ~ paragraph.bundle|clean_class,
+    view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
+    not paragraph.isPublished() ? 'paragraph--unpublished'
+  ]
+%}
+
+{% block paragraph %}
+  <div{{ attributes.addClass(classes) }}>
+    <div class="row">
+    
+      {% if p.align == "left" %}
+        {# image is on left #}
+      <div class="col-12 col-md-6">
+        {{ content.field_image }}
+        <span class="caption">{{ p.caption }}</span>
+      </div>
+
+      <div class="col-12 col-md-6 px-3 px-md-5">
+        {% autoescape false %}
+        {{ p.text }}
+        {% endautoescape %}
+      </div>
+        
+      {% else %}
+        {# image is on right #}
+      <div class="col-12 col-md-6 px-3 px-md-5">
+        {% autoescape false %}
+        {{ p.text }}
+        {% endautoescape %}
+      </div>
+        
+      <div class="col-12 col-md-6">
+        {{ content.field_image }}
+        <span class="caption">{{ p.caption }}</span>
+      </div>
+        
+      {% endif %}
+      
+    </div>
+
+  </div>
+{% endblock paragraph %}

@@ -1,0 +1,14 @@
+{%
+  set classes = [
+    'taxonomy-term',
+    'vocabulary-' ~ term.bundle|clean_class,
+  ]
+%}
+<div{{ attributes.setAttribute('id', 'taxonomy-term-' ~ term.id).addClass(classes) }}>
+  {{ title_prefix }}
+  <h2 class="text-center mb-5">{{ name }}</h2>
+  {{ title_suffix }}
+  <div class="content">
+    {{ content }}
+  </div>
+</div>

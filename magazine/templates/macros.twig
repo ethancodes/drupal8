@@ -1,0 +1,61 @@
+{# 
+  spit out indicators for the slider
+  num_slides should be an int
+  target should be the id, without the #, of the slider
+  #}
+{% macro slider_indicators(num_slides, target) %}
+<ol class="carousel-indicators">
+  {% for i in 1..num_slides %}
+  {% set indicator_class = loop.first ? 'active' : '' %}
+  <li data-target="#{{ target }}" 
+    data-slide-to="{{ i-1 }}" 
+    class="{{ indicator_class }}"></li>
+  {% endfor %}
+</ol>  
+{% endmacro %}
+
+{# 
+  spit out next/previous arrows for a slider 
+  dir should be "next" or "prev"
+  label should be "Next" or "Previous" or something like that
+  target should be an id, without the #, of the slider
+  #}
+{% macro slider_arrow(dir, label, target) %}
+<a class="carousel-control-{{ dir }}" href="#{{ target }}" role="button" data-slide="{{ dir }}">
+  <span class="carousel-control-{{ dir }}-icon" aria-hidden="true"></span>
+  <span class="sr-only">{{ label }}</span>
+</a>    
+{% endmacro %}
+
+{#
+  a fancy select for class notes years
+  #}
+{% macro class_notes_years_select(years) %}
+<div class="fancy-select class-notes-select-year">
+  <select>
+    <option value="all">All Years</option>
+    {% for y in years %}
+    <option value="{{ y }}">{{ y }}</option>
+    {% endfor %}
+  </select>
+  <div class="select-arrow"></div>
+</div>      
+{% endmacro %}
+
+{#
+  list categories
+  #}
+{% macro show_categories(taxonomies) %}
+<div class="taxonomy-container"><div class="row">
+{% for vid, taxonomy in taxonomies %}
+  <div class="taxonomy col-12 col-md-4">
+    <p><em>{{ taxonomy.name }}</em></p>
+    {% for tid, category in taxonomy.terms %}
+      <p>
+        <a href="/taxonomy/term/{{ tid }}">{{ category }}</a>
+      </p>
+    {% endfor %}
+  </div>
+{% endfor %}
+</div></div>
+{% endmacro %}

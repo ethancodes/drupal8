@@ -1,0 +1,19 @@
+{#
+  template for the ARTICLE Page Type of the Advanced Page Content Type
+  it is also pretty much the default template for any Advanced Page
+  #}
+
+<header class="py-3 py-md-5">
+  {% if subtitle %}
+    <h2>{{ subtitle }}</h2>
+  {% endif %}
+  <h1>{{ title }}</h1>
+</header>
+
+{% if images %}
+  <div class="feature-image text-center mb-3 mb-md-5">
+  {{ content.field_images }}
+  </div>
+{% endif %}
+
+{{ content.field_paragraphs }}

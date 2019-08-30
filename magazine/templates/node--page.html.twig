@@ -1,0 +1,30 @@
+{#
+  template for a Basic Page
+  #}
+{%
+  set classes = [
+    'node',
+    'node--type-' ~ node.bundle|clean_class,
+    'page-type-' ~ n.page_type.0.name|clean_class,
+    node.isPromoted() ? 'node--promoted',
+    node.isSticky() ? 'node--sticky',
+    not node.isPublished() ? 'node--unpublished',
+    view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
+  ]
+%}
+
+<article{{ attributes.addClass(classes) }}>
+  
+  {% if content.content_moderation_control %}
+  {{ content.content_moderation_control }}
+  {% endif %}
+  
+  <header class="article-width py-3 py-md-5">
+    <h1>{{ label }}</h1>
+  </header>
+
+  <div class="article-width">
+    {{ content }}  
+  </div>
+  
+</article>

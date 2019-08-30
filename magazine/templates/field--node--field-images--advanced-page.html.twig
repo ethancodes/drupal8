@@ -1,0 +1,58 @@
+{#
+  template for the field Image
+  which is on the content type Advanced Page
+  
+  this may have 1 image
+    so just spit that out (responsive)
+  but it may have multiple values
+    in which case turn it into a carousel/slider
+  #}
+
+{% import '@magazine/macros.twig' as myMacros %}
+
+{#
+  so we have to give every carousel a unique id
+  it would be neat to use the Node ID that this appears on
+  BUT
+  because some Features appear in the mega menu
+  and might then end up on the page twice
+  I'm just going to use a random number
+  #}
+{% set carousel_id = "featureGo-" ~ random() %}
+
+{% if items|length == 1 %}
+  {# only one image #}
+  {% for item in items %}
+    {{ item.content }}
+  {% endfor %}
+
+{% elseif items|length > 1 %}
+  {# lots of images, we want a carousel/slider #}
+
+<div id="{{ carousel_id }}" 
+  class="carousel slide carousel-fade" 
+  data-ride="carousel" 
+  data-interval="false">
+  
+  {{ myMacros.slider_indicators(items|length, carousel_id) }}
+
+  <div class="carousel-inner">
+
+  {% for item in items %}
+    {% set ci_classes = [
+      'carousel-item',
+      loop.first ? 'active' : ''
+      ] %}
+    <div class="{{ ci_classes|join(' ') }}">
+      {{ item.content }}
+    </div>
+  {% endfor %}
+    
+  </div>
+  
+  {{ myMacros.slider_arrow("prev", "Previous", carousel_id) }}
+  {{ myMacros.slider_arrow("next", "Next", carousel_id) }}
+  
+</div>
+
+{% endif %}

@@ -1,0 +1,57 @@
+{#
+  template for the FEATURE Page Type of the Advanced Page Content Type
+  #}
+
+{% if images %}
+  <div class="feature-image text-center">
+  {{ content.field_images }}
+  </div>
+{% endif %}
+
+<header class="text-center p-3 p-md-5">
+  <h1>{{ title }}</h1>
+  {% if subtitle %}
+    <h2>{{ subtitle }}</h2>
+  {% endif %}
+  {% if byline %}
+    <h3>{{ byline }}</h3>
+  {% endif %}
+</header>
+
+{{ content.field_paragraphs }}
+
+<div class="feature-footer my-3 my-md-5">
+  <div class="container">
+    <div class="row">
+    
+      <div class="col-12 col-md-6 feature-author">
+        
+        <div class="row">
+          {% if n.author.photo %}
+          <div class="col-12 col-md-4 text-center">
+            <img src="{{ n.author.photo }}"
+                 alt="{{ n.author.name }}"
+                 class="rounded-circle" />
+          </div>
+          {% endif %}
+          <div class="col-12 col-md-8">
+            <p>
+              {% if n.author.name %}
+              <em>written by {{ n.author.name }}</em><br />
+              {% endif %}
+              <a href="mailto:{{ n.author.email }}">
+                {{ n.author.email }}
+              </a>
+            </p>
+          </div>
+        </div>
+                
+      </div>
+
+      <div class="col-12 col-md-6">
+        {# share thing might go here #}
+      </div>      
+      
+    </div>
+  </div>
+</div>

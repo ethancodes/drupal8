@@ -1,0 +1,66 @@
+
+/*
+  so we don't want to see the megamenu AT ALL on small screens because shrug
+*/
+.megamenu-container {
+  display: none;
+}
+@media #{$responsive-biggerthan-md} {
+  .megamenu-container {
+    display: block;
+    position: relative;
+    background-color: #424242;
+    padding-top: 0.5rem;
+  }
+}
+
+.megamenu-container {
+  .megamenu-panels {
+    
+    width: 495px;
+    margin: 0 auto;
+    
+    .megamenu-panel {
+      display: inline-block;
+      
+      .panel-item {
+        padding: 0 0.5rem 0.5rem;
+      }
+      
+      .panel-content {
+        @extend .animated;
+        background-color: #f0f0f0;
+        border-bottom: 3px solid $rpi_lightgray;
+        position: absolute;
+        top: 45px;
+        left: 0;
+        width: 100%;
+        height: auto;
+        max-height: 0;
+        overflow: hidden;
+        z-index: 1000;        
+      }
+      
+    }
+    .megamenu-panel.open {
+      .panel-content {
+        max-height: 50vh;
+      }
+    }
+  }
+}
+
+
+.megamenu-container .panel-item a {
+  color: $rpi_white;
+  text-transform: uppercase;
+  &:hover {
+    color: $rpi_yellow;
+    text-decoration: underline;
+  }
+}
+.megamenu-container .panel-content a {
+  color: $rpi_darkgray;
+  font-weight: $font_weight_regular;
+}
+

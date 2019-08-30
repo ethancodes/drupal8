@@ -1,0 +1,49 @@
+.class-notes-action-bar {
+  
+  background-color: $rpi_lightgray;
+  
+  h1 {
+    font-size: 38px;
+  }
+  
+}
+
+.sep {
+  margin-right: 0.5rem;
+  border-right: 1px solid $rpi_medgray;
+  padding-right: 0.5rem;  
+}
+
+.view-class-notes {
+  
+  h3 {
+    color: $rpi_lightgray;
+  }
+  
+  .views-row {
+    
+    max-width: 900px;
+    margin: 0 auto 3rem;
+    
+    .caption {
+      font-style: italic;
+    }
+    
+    span.field-school {
+      @extend .sep;
+      text-transform: uppercase;
+    }
+    span.body {
+      @extend .sep;
+    }
+    span.created {
+      font-style: italic;
+      text-transform: lowercase;
+    }
+  }
+  
+}
+
+.class-notes-archive-bar {
+  background-color: $rpi_lightgray;
+}

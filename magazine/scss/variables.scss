@@ -1,0 +1,22 @@
+
+$break-xs: 495px;
+
+// breakpoints based on bootstrap
+$break-sm: 576px;
+$break-md: 768px;
+$break-lg: 992px;
+$break-xl: 1200px;
+
+// magic
+// @media #{$responsive-sm} { background: red; }
+$responsive-xs: "only screen and (max-width : #{$break-xs})";
+$responsive-sm: "only screen and (max-width : #{$break-sm})";
+$responsive-md: "only screen and (max-width : #{$break-md})";
+$responsive-lg: "only screen and (max-width : #{$break-lg})";
+$responsive-xl: "only screen and (max-width : #{$break-xl})";
+
+$responsive-biggerthan-xs: "only screen and (min-width : #{$break-xs})";
+$responsive-biggerthan-sm: "only screen and (min-width : #{$break-sm})";
+$responsive-biggerthan-md: "only screen and (min-width : #{$break-md})";
+$responsive-biggerthan-lg: "only screen and (min-width : #{$break-lg})";
+$responsive-biggerthan-xl: "only screen and (min-width : #{$break-xl})";

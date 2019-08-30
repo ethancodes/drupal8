@@ -1,0 +1,74 @@
+{#
+  template for the Content Type Advanced Page
+  BUT
+  since things looks different depending on the Page Type field
+  we're going to look at that and use a different template for that
+  #}
+
+{%
+  set classes = [
+    'node',
+    'node--type-' ~ node.bundle|clean_class,
+    'page-type-' ~ n.page_type.0.name|clean_class,
+    node.isPromoted() ? 'node--promoted',
+    node.isSticky() ? 'node--sticky',
+    not node.isPublished() ? 'node--unpublished',
+    view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
+  ]
+%}
+
+<article{{ attributes.addClass(classes) }}>
+  
+  {% if content.content_moderation_control %}
+  {{ content.content_moderation_control }}
+  {% endif %}
+  
+{% set tpl = 'article' %}{# DEFAULT #}
+{% if n.page_type %}
+  {% if n.page_type.0.tid == 5 %}{# FEATURE #}
+    {% set tpl = 'feature' %}
+  {% endif %}
+{% endif %}
+{% include '@magazine/node--advanced-page-' ~ tpl ~ '.html.twig' with n %}
+  
+  <footer>
+    <div class="container">
+      
+    {% if n.page_type.0.tid == 5 or 
+        n.page_type.0.tid == 6 or
+        n.page_type.0.tid == 14 %}
+    <p>
+      <em><strong>Posted in </strong></em>
+      <span class="links">
+        {% if n.page_type.0.tid == 5 %}
+          {% set posted_in_url = "/features" %}
+        {% elseif n.page_type.0.tid == 6 %}
+          {% set posted_in_url = "/at-rensselaer" %}
+        {% elseif n.page_type.0.tid == 14 %}
+          {% set posted_in_url = "/from-our-readers" %}
+        {% endif %}
+        <a href="{{ posted_in_url }}">{{ n.page_type.0.name }}</a>
+      </span>
+    </p>
+    {% endif %}
+      
+    {% if n.news_categories or n.global_challenges or n.research_thrusts %}
+    <p>
+      <em><strong>Tagged </strong></em>
+      <span class="links">
+      {% for c in n.news_categories %}
+        <a href="/taxonomy/term/{{ c.tid }}">{{ c.name }}</a>
+      {% endfor %}
+      {% for c in n.global_challenges %}
+        <a href="/taxonomy/term/{{ c.tid }}">{{ c.name }}</a>
+      {% endfor %}
+      {% for c in n.research_thrusts %}
+        <a href="/taxonomy/term/{{ c.tid }}">{{ c.name }}</a>
+      {% endfor %}
+      </span>
+    </p>
+    {% endif %}
+    </div>
+  </footer>
+  
+</article>

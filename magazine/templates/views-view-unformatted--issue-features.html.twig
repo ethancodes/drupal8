@@ -1,0 +1,22 @@
+{#
+  template for the Issue - Feature View
+  #}
+
+{%
+  set classes = [
+    'my-3',
+    'issue-page-view'
+  ]
+%}
+
+<div{{ attributes.addClass(classes) }}>
+  <div class="container">
+    <div class="row">
+      
+      {% for row in rows %}
+        <div class="col-12 col-md-4">{{ row.content }}</div>
+      {% endfor %}
+      
+    </div>
+  </div>
+</div>

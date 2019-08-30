@@ -1,0 +1,22 @@
+{#
+  For the Paragraph Type: VISME
+  Everything we have here is in an array called p
+  And that is set in paperclip_preprocess_paragraph
+  #}
+{%
+  set classes = [
+    'my-5',
+    'paragraph',
+    'paragraph--type--' ~ paragraph.bundle|clean_class,
+    view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
+    not paragraph.isPublished() ? 'paragraph--unpublished'
+  ]
+%}
+
+{% block paragraph %}
+  <div{{ attributes.addClass(classes) }}>
+    {% autoescape false %}
+    {{ p.visme }}
+    {% endautoescape %}
+  </div>
+{% endblock paragraph %}

@@ -1,0 +1,85 @@
+{#
+  Subfooter
+  This is the footer that displays all the people responsible
+  Home Pages get one footer
+  Issue Pages (and pages under them) get another (based on the Issue)
+  They look the same, they just have different content
+  
+  So, for each column, if I have a value in column_x, display that
+  This is probably HTML from the Issue
+  If I don't, display a default
+  Which is for the Home Pages
+  
+  #}
+
+<div class="subfooter"><div class="container">
+  <div class="row">
+    <div class="col-md-8">
+      <div class="row">
+        <div class="col-md-4">
+          
+          {% if column_1 %}
+            {% autoescape false %}
+            {{ column_1 }}
+            {% endautoescape %}
+          {% else %}
+            <p>
+              <strong>Vice President for  Strategic Communications  and External Relations</strong>
+              <br />
+              Richie Hunter
+            </p>
+          {% endif %}
+                              
+        </div>{# end of column 1 #}
+        <div class="col-md-4">
+          
+          {% if column_2 %}
+            {% autoescape false %}
+            {{ column_2 }}
+            {% endautoescape %}
+          {% else %}
+            <p>
+              <strong>Associate Vice President for  Marketing and Communications</strong>
+              <br />
+              Pamela Smith
+            </p>
+          {% endif %}
+
+        </div>{# end of column 2 #}
+        <div class="col-md-4">
+          
+          {% if column_3 %}
+            {% autoescape false %}
+            {{ column_3 }}
+            {% endautoescape %}
+          {% else %}
+            <p>
+              <strong>Managing Editor</strong>
+              <br />
+              Tracey Leibach
+            </p>
+
+            <p>
+              <strong>Alumni News Editor</strong>
+              <br />
+              Meg Gallien
+            </p> 
+          {% endif %}
+          
+        </div>{# end of column 3 #}
+      </div>{# end of all the columns with names in them #}
+    </div>
+    <div class="col-md-4">
+      <p class="text-center">
+        <a class="btn outline red" href="#">Give Us Your Feedback</a>
+      </p>
+      <p class="disclaimer">
+            Opinions expressed in these pages do not  necessarily reflect the views of the editors or the policies of the Institute.
+      </p>
+      <p class="text-center">
+        <a class="btn outline red" href="/the-magazine">View Past Issues</a>
+      </p>
+    </div>
+  </div>
+      
+</div></div>

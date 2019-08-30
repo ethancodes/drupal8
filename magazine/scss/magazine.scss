@@ -1,0 +1,171 @@
+@import 'colors';
+@import 'variables';
+@import 'typography';
+@import 'buttons';
+@import 'forms';
+
+html, body {
+  font-family: $rpi_sans;
+  background-color: $rpi_body_background;
+  font-size: 18px;
+}
+
+@import 'rpi-header';
+
+.layout-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  background-color: $rpi_white;
+  
+  header {
+    .banner-logo {
+      width: 66%;
+      margin: 0 auto;
+      position: relative;
+      .banner-issue {
+        text-align: right;
+      }
+    }
+  }
+}
+@media #{$responsive-biggerthan-md} {
+  .layout-container header .banner-logo {
+    margin: 7% auto;
+    .banner-issue {
+      font-size: 28px;
+    }
+  }
+}
+@media #{$responsive-biggerthan-lg} {
+  .layout-container header .banner-logo .banner-issue {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+}
+
+
+.layout-container a:not(.btn) {
+  color: $rpi_teal;
+}
+
+
+.animated {
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -ms-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;  
+  border-radius: 0 !important;  
+}
+
+
+.back-to-top {
+  display: block;
+  width: 50px;
+  height: 50px;
+  position: fixed;
+  right: 10px;
+  bottom: 10px;
+  z-index: 1234;
+  
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+
+  i {
+    font-size: 50px;
+    color: rgba(0, 0, 0, 0.5);
+    &:hover {
+      color: $rpi_teal;
+    }
+  }
+}
+
+
+.subfooter {
+  background-color: $rpi_lightgray;
+  padding: 2% 0;
+
+  .row .row p strong {
+    font-family: $rpi_serif;
+  }
+
+  .disclaimer {
+    font-family: $rpi_serif;
+    font-style: italic;
+  }
+
+}
+
+
+footer.rpi-footer {
+  background-color: #424242;
+  color: $rpi_lightgray;
+  font-size: 0.8rem;
+  
+  a, a:hover {
+    color: $rpi_lightgray;
+  }
+  a.policy-link {
+    margin: 0 0.5em;
+  }
+  
+  div.col-12 {
+    text-align: center;
+  }
+  
+}
+@media #{$responsive-biggerthan-lg} {
+  footer.rpi-footer {
+    div.col-12 {
+      border-left: 1px solid $rpi_lightgray;
+    }
+    div.col-lg-4 {
+      border-left: 0;
+    }
+  }
+}
+
+
+.view-taxonomy-term {
+  .node h1 {
+    font-size: 18px;
+    a, a:hover {
+      color: $rpi_darkgray;
+    }
+  }
+  .feed-icons { display: none; }
+}
+
+.taxonomy-container {
+  a, a:hover {
+    color: $rpi_darkgray;
+    margin-left: 1rem;
+    border-left: 1px solid $rpi_darkgray;
+    padding-left: 1rem;
+    &:first-child {
+      margin: 0;
+      border: 0;
+      padding: 0;
+    }
+  }  
+}
+
+.view-the-magazine {
+  .views-row {
+    .views-field-title a {
+      @extend .slab-title;
+      color: $rpi_darkgray;
+      text-decoration: none;
+    }
+  }
+}
+
+
+@import 'megamenu';
+@import 'issue-nav';
+@import 'carousel';
+@import 'node--issue';
+@import 'node--advanced-page';
+@import 'node--home-page';
+@import 'class-notes';

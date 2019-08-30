@@ -1,0 +1,25 @@
+{#
+  this is a template for an Advanced Page
+  but it's the TEASER
+  which, for example, would show up one a Taxonomy Term View
+  #}
+
+{%
+  set classes = [
+    'node',
+    'node--type-' ~ node.bundle|clean_class,
+    'page-type-' ~ n.page_type.0.name|clean_class,
+    node.isPromoted() ? 'node--promoted',
+    node.isSticky() ? 'node--sticky',
+    not node.isPublished() ? 'node--unpublished',
+    view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
+  ]
+%}
+
+<article{{ attributes.addClass(classes) }}>
+  
+  {{ content.field_images }}
+  
+  <h1 class="text-center my-3"><a href="{{ url }}">{{ label }}</a></h1>  
+  
+</article>

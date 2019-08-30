@@ -1,0 +1,131 @@
+{#
+  template for Content Type Issue
+  #}
+
+{% import '@magazine/macros.twig' as myMacros %}
+{{ attach_library('magazine/class-notes') }}
+
+{%
+  set classes = [
+    'node',
+    'node--type-' ~ node.bundle|clean_class,
+    node.isPromoted() ? 'node--promoted',
+    node.isSticky() ? 'node--sticky',
+    not node.isPublished() ? 'node--unpublished',
+    view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
+  ]
+%}
+
+{% set feature_url = n.hero.feature.url ? n.hero.feature.url : "#" %}
+
+<article{{ attributes.addClass(classes) }}>
+
+  {% if content.content_moderation_control %}
+  {{ content.content_moderation_control }}
+  {% endif %}  
+  
+  {# HERO #}
+  <div class="issue-hero row no-gutters mb-3">
+    <div class="col-12 col-md-5 p-3 p-md-5">
+      <a href="{{ feature_url }}">
+        {% autoescape false %}
+        {{ n.hero.text }}
+        {% endautoescape %}
+      </a>
+    </div>
+    <div class="col-12 col-md-7 text-center text-md-right">
+      <a href="{{ feature_url }}">
+        {{ content.field_hero_image }}
+      </a>
+    </div>
+  </div>
+  
+  
+  {# IN EVERY ISSUE #}
+  <div class="in-every-issue py-3">
+    <div class="container">
+      <h2 class="line-on-side slab-title">
+        In Every Issue
+      </h2>
+      <div class="row">
+        {% for menu_item in n.in_every_issue %}
+          {# we may want to skip Features #}
+        <div class="col-12 col-md-6 col-lg-4">
+          <a href="{{ menu_item.url }}">{{ menu_item.title }}</a>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  
+  
+  {# NOTABLE ALUMNI #}
+  {% if n.notable_alumni %}
+  <div class="notable-alumni-container py-3">
+    <div class="container">
+      <h2 class="slab-title">
+        Notable Alumni
+      </h2>
+      <div class="row">
+        {% for na in n.notable_alumni %}
+          <div class="col-12 col-md-6 col-lg-4">
+            <div class="text-center my-3">
+            <img src="{{ na.image.alum_210_x_158 }}"
+                 alt="{{ na.image.alt }}"
+                 class="img-fluid" />
+            </div>
+            {% autoescape false %}
+            {{ na.text }}
+            {% endautoescape %}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  {% endif %}
+  
+  
+  {# CLASS NOTES #}
+  <div class="class-notes-container py-3">
+    <div class="container">
+      <h2 class="slab-title">
+        Class Notes
+      </h2>
+      <div class="row">
+        <div class="col-12 col-lg-5 mb-3 color-white">
+          {% autoescape false %}
+          {{ n.class_notes.call_out }}
+          {% endautoescape %}
+        </div>
+        <div class="col-12 col-lg-7 mb-3">
+          {{ myMacros.class_notes_years_select(n.class_notes.years) }}
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  {# SNAPSHOTS #}
+  {% if n.snapshot_text or n.snapshot_images %}
+  <div class="snapshot-container py-3">
+    <div class="container">
+      <h2 class="slab-title">
+        Snapshot
+      </h2>
+
+      {% if n.snapshot_images %}
+        {{ content.field_snapshot_image }}
+      {% endif %}
+      
+      {% if n.snapshot_text %}
+        {% autoescape false %}
+        {{ n.snapshot_text }}
+        {% endautoescape %}
+      {% endif %}
+      
+    </div>
+  </div>
+  {% endif %}  
+  
+  
+</article>

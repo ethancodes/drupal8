@@ -1,0 +1,48 @@
+{#
+  template for the field Snapshot Image
+  which is on the content type Issue
+  
+  this may have 1 image
+    so just spit that out (responsive)
+  but it may have multiple values
+    in which case turn it into a carousel/slider
+  #}
+
+{% import '@magazine/macros.twig' as myMacros %}
+
+{% if items|length == 1 %}
+  {# only one image #}
+  {% for item in items %}
+    {{ item.content }}
+  {% endfor %}
+
+{% elseif items|length > 1 %}
+  {# lots of images, we want a carousel/slider #}
+
+<div id="snapshotGo" 
+  class="carousel slide carousel-fade" 
+  data-ride="carousel" 
+  data-interval="false">
+  
+  {{ myMacros.slider_indicators(items|length, "snapshotGo") }}
+
+  <div class="carousel-inner">
+
+  {% for item in items %}
+    {% set ci_classes = [
+      'carousel-item',
+      loop.first ? 'active' : ''
+      ] %}
+    <div class="{{ ci_classes|join(' ') }}">
+      {{ item.content }}
+    </div>
+  {% endfor %}
+    
+  </div>
+  
+  {{ myMacros.slider_arrow("prev", "Previous", "snapshotGo") }}
+  {{ myMacros.slider_arrow("next", "Next", "snapshotGo") }}
+  
+</div>
+
+{% endif %}
