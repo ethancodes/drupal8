@@ -1,0 +1,35 @@
+# Header
+# --------------
+# Background colors: red, gray
+# Navs: 0 = no nav, 1 = full nav, 2 = just the search
+# --------------
+papercut_header_background_color: 'gray'
+papercut_header_nav: 0
+papercut_footer_size: 1
+
+# Layout
+# --------------
+papercut_sidebar_position: 'both'
+papercut_content_offset: 0
+papercut_sidebar_first_width: 3
+papercut_sidebar_first_offset: 0
+papercut_sidebar_second_width: 3
+papercut_sidebar_second_offset: 0
+
+# Container
+# --------------
+papercut_fluid_container: 0
+
+# Buttons
+# --------------
+papercut_button_size: ''
+papercut_button_outline: 0
+
+# Navbar
+# --------------
+papercut_navbar_top_position: ''
+papercut_navbar_top_color: 0
+papercut_navbar_top_background: 'faded'
+papercut_navbar_position: ''
+papercut_navbar_color: 'dark'
+papercut_navbar_background: 'inverse'

@@ -1,0 +1,36 @@
+global-styling:
+  version: VERSION
+  js:
+    js/global.js: {}
+  css:
+    component:
+      css/rpi.css: {}
+      css/style.css: {}
+  dependencies:
+    - core/jquery
+    - core/drupal.ajax
+    - core/drupal
+    - core/drupalSettings
+    - core/jquery.once
+
+fonts:
+  css:
+    theme:
+      '//fonts.googleapis.com/css?family=Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i,900,900i': { 
+        type: external, 
+        minified: true }
+      '//fonts.googleapis.com/css?family=Oswald:200,300,400,500,600,700': { 
+        type: external, 
+        minified: true }
+      '//use.fontawesome.com/releases/v5.0.12/css/all.css': {
+        type: external,
+        integrity: 'sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9',
+        crossorigin: anonymous }
+
+fontawesomebrands:
+  css:
+    theme:
+      '//use.fontawesome.com/releases/v5.0.12/css/brands.css': {
+        type: external,
+        integrity: 'sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9',
+        crossorigin: anonymous }

@@ -1,0 +1,22 @@
+header#header {
+  background-color: #ffffff;
+}
+
+#header #navbar-main .navbar-brand {
+  font-size: 48px;
+  font-weight: normal;
+}
+
+.sidebar {
+  padding: 0;
+}
+.sidebar aside > * {
+  margin-bottom: 1rem;
+}
+.sidebar nav ul.nav {
+  margin: 0; /* override barrio */
+}
+.sidebar .block {
+  border: 0;
+  background-color: white;
+}

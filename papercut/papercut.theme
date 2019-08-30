@@ -1,0 +1,65 @@
+<?php
+
+function papercut_preprocess(&$variables) {
+  $variables['base_path'] = base_path();
+  
+  // set up our theme settings
+  $foo = theme_get_setting('papercut_header_background_color');
+  if (is_null($foo)) $foo = 'red';
+  $variables['theme_settings']['papercut_header_background_color'] = $foo;
+  
+}
+
+function papercut_preprocess_region(&$variables) {
+
+  $okay_regions = [
+    'top_header',
+    'footer_first'
+  ];
+  $this_region = $variables['elements']['#region'];
+
+  if (!in_array($this_region, $okay_regions)) return;
+
+  // set up our theme settings
+  $foo = theme_get_setting('papercut_header_background_color');
+  if (is_null($foo)) $foo = 'red';
+  $variables['theme_settings']['papercut_header_background_color'] = $foo;
+  
+  $foo = theme_get_setting('papercut_header_nav');
+  if (is_null($foo)) $foo = 1;
+  $variables['theme_settings']['papercut_header_nav'] = $foo;
+
+  $foo = theme_get_setting('papercut_footer_size');
+  if (is_null($foo)) $foo = 1;
+  $variables['theme_settings']['papercut_footer_size'] = $foo;
+  
+  if ($this_region == 'footer_first' && function_exists('subfooter_get')) {
+    $variables['subfooter'] = subfooter_get();
+    if ($variables['subfooter']['num_socials']) {
+      $variables['#attached']['library'][] = 'rpi/fontawesomebrands';
+    }
+  }
+
+}
+
+// Add a region variable to a block.
+function papercut_preprocess_block(&$variables, $hook) {
+  if (isset($variables["elements"]["#id"])) {
+    $block_id = $variables["elements"]["#id"];
+    $block = \Drupal\block\Entity\Block::load($block_id);
+
+    if ($block) {
+      $variables["attributes"]["region"] = $block->getRegion();
+      $variables["content"]["#attributes"]["region"] = $block->getRegion();
+      /*
+      if ($block->getRegion() == 'sidebar_first') {
+        $plugin = $block->getPluginId();
+        if (strpos($plugin, 'menu') !== FALSE) {
+          $variables['attributes']['class'][] = 'sidebar-nav';
+        }
+        
+      }
+      */
+    }
+  }
+}
