@@ -1,0 +1,24 @@
+<?php
+
+use Drupal\migrate\MigrateExecutable;
+use Drupal\migrate\MigrateMessage;
+
+/**
+ * Implements hook_cron().
+ */
+function cron_migrate_cron() {
+  
+  $migration_ids = [
+    'rpi_airc_news_importer'
+  ];
+  
+  foreach ($migration_ids as $mid) {
+    
+    $migration = \Drupal::service('plugin.manager.migration')->createInstance($mid);
+    $migration->getIdMap()->prepareUpdate();
+    $executable = new MigrateExecutable($migration, new MigrateMessage());
+    $executable->import();
+    
+  }
+  
+}

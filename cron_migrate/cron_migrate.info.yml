@@ -1,0 +1,9 @@
+name: Cron Migrate
+description: "Run migrations as part of Drupal's Cron"
+package: Custom
+
+type: module
+core: 8.x
+
+dependencies:
+  - drupal:migrate
