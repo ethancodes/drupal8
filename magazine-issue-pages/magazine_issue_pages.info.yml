@@ -1,0 +1,6 @@
+name: Magazine Issue Pages
+description: "A module for the Magazine."
+package: Custom
+
+type: module
+core: 8.x
